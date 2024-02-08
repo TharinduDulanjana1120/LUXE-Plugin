@@ -6,3 +6,5 @@ Object Detection - Misal
 ML and Inner Process - Dulya| Tharindu
 Database Management - Nihithi
 Frontend - Woradha
+
+Need to get idea about Github
