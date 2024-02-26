@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Clothing Suggestion App</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Clothing Suggestion App</h1>
+        <label for="skinColor">Skin Color:</label>
+        <select id="skinColor">
+            <option value="fair">Fair</option>
+            <option value="medium">Medium</option>
+            <option value="dark">Dark</option>
+        </select>
+
+        <label for="occasion">Occasion:</label>
+        <select id="occasion">
+            <option value="casual">Casual</option>
+            <option value="formal">Formal</option>
+            <option value="party">Party</option>
+        </select>
+
+        <label for="gender">Gender:</label>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <button onclick="getClothingSuggestion()">Get Suggestion</button>
+
+        <div id="output"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
