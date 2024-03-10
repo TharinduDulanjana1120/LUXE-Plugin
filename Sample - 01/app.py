@@ -2,12 +2,14 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__, template_folder='C:/University/Sample - 01')
 
+a = ""  
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html' )
 
 @app.route('/suggest_clothing', methods=['POST'])
 def suggest_clothing():
+    global a
     gender = request.form['gender']
     skin_color = request.form['skinColor']
     occasion = request.form['occasion']
@@ -17,12 +19,13 @@ def suggest_clothing():
    
     suggestion = get_clothing_suggestion( gender,skin_color, occasion,body_type,size)
 
-    return render_template('index.html', output=f'{suggestion}')
+    return render_template('index.html', output=f'{suggestion}',image_path = a)
 
 def get_clothing_suggestion(gender,skin_color, occasion,body_type,size):
-
+    global a 
     if gender == 'male' and occasion == 'casual' and skin_color == 'fair' and body_type == 'pear' and size == 'small' :
-        return '1.1.1' , 'static/images/download.png'
+        a = 'static/images/download.png'
+        return '1.1.1' , a 
     elif gender == 'male' and occasion == 'casual' and skin_color == 'fair' and body_type == 'pear' and size == 'medium' :
         return '1.1.2'
     elif gender == 'male' and occasion == 'casual' and skin_color == 'fair' and body_type == 'pear' and size == 'large' :
