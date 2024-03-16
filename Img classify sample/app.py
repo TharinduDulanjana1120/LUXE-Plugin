@@ -39,8 +39,10 @@ def classify_image():
     class_label = prediction['label']
     confidence_score = prediction['confidence']
 
-    # Return result
-    return render_template('result.html', class_label=class_label, confidence_score=confidence_score)
+    # Return solid prediction output
+    prediction_output = f"The image is classified as {class_label} with a confidence score of {confidence_score:.2f}"
+
+    return render_template('result.html', prediction_output=prediction_output)
 
 if __name__ == '__main__':
     app.run(debug=True)
