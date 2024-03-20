@@ -1,5 +1,5 @@
 # Import necessary libraries
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, json
 import requests
 import base64
 
@@ -32,15 +32,23 @@ def classify_image():
     # Send POST request to the machine learning model
     response = requests.post('https://teachablemachine.withgoogle.com/models/blAMVc866/', json=payload)
 
-    # Parse response JSON
-    prediction = response.json()['predictions'][0]
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Parse response JSON and convert it to a string
+        json_output = response.content.decode('utf-8')
 
-    # Get class label and confidence score
-    class_label = prediction['label']
-    confidence_score = prediction['confidence']
+        # Parse JSON string to extract the prediction
+        prediction = json.loads(json_output)['predictions'][0]
 
-    # Return result
-    return render_template('result.html', class_label=class_label, confidence_score=confidence_score)
+        # Get class label and confidence score
+        class_label = prediction['label']
+        confidence_score = prediction['confidence']
+
+        # Return result
+        return render_template('result.html', class_label=class_label, confidence_score=confidence_score)
+    else:
+        # Return an error message if the request was not successful
+        return "Error: Unable to classify the image. Please try again."
 
 if __name__ == '__main__':
     app.run(debug=True)
