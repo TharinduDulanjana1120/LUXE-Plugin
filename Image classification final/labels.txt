@@ -1,0 +1,6 @@
+0 Rectangle
+1 Pear
+2 Inverted Triangle
+3 Oval
+4 Slim
+5 Not Human

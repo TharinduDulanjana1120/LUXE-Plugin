@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classification</title>
+</head>
+<body>
+    <h1>Image Classification</h1>
+    <input type="file" id="image-input" accept="image/*">
+    <button onclick="classify()">Classify</button>
+    <br>
+    <img id="preview-image" style="max-width: 300px; max-height: 300px; display: none;">
+    <p id="result"></p>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.9.0"></script>
+    <script>
+        async function classify() {
+            const modelURL = 'https://teachablemachine.withgoogle.com/models/S9lu2rEmM/';
+            const model = await tf.loadLayersModel(modelURL + 'model.json');
+            const inputElement = document.getElementById('image-input');
+            const image = inputElement.files[0];
+
+            if (image) {
+                const reader = new FileReader();
+                reader.onload = async function() {
+                    const img = new Image();
+                    img.src = reader.result;
+                    img.onload = async function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = 224;
+                        canvas.height = 224;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, 224, 224);
+                        const tensor = tf.browser.fromPixels(canvas).toFloat().expandDims();
+                        const prediction = await model.predict(tensor).data();
+                        const resultElement = document.getElementById('result');
+                        resultElement.innerText = 'Prediction: ' + getClassLabel(prediction);
+
+                        // Show preview image
+                        const previewImageElement = document.getElementById('preview-image');
+                        previewImageElement.src = reader.result;
+                        previewImageElement.style.display = 'block';
+                    }
+                }
+                reader.readAsDataURL(image);
+            } else {
+                alert('Please select an image.');
+            }
+        }
+
+        function getClassLabel(prediction) {
+            const class_labels = ["Rectangle", "Pear", "Inverted Triangle", "Oval", "Slim", "Not Human"];
+            const maxIndex = prediction.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
+            return class_labels[maxIndex];
+        }
+    </script>
+</body>
+</html>
