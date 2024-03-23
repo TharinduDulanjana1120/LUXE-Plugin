@@ -1,6 +1,9 @@
 # Import necessary libraries
 from flask import Flask, render_template, request
 import math
+import os
+from glob import glob
+
 
 # Import the predict Blueprint
 from predict import predict_blueprint
@@ -52,6 +55,25 @@ def body_type():
 @app.route('/suggest')
 def suggest():
     return render_template('suggest.html')
+
+# Define route for suggest.html
+@app.route('/testfile', methods=['POST'])
+def testroute():
+    gender = request.form['gender']
+    skin_color = request.form['skinColor']
+    occasion = request.form['occasion']
+    body_type = request.form['bodyType']
+    size = request.form['size']
+
+    # Get the list of image files in the folder
+    image_folder = 'static/images/female'  # Path to the folder containing images
+    image_files = os.listdir(image_folder)
+    
+    image_folder_male = 'static/images/male'  # Path to the folder containing images
+    image_files_male = os.listdir(image_folder_male)
+
+    return render_template('test.html', gender=gender, skin_color=skin_color, occasion=occasion, body_type=body_type, size=size,image_files=image_files,image_files_male=image_files_male)
+
 
 # Run the Flask application
 if __name__ == '__main__':
