@@ -42,7 +42,7 @@ def index():
 # Define route for bodyType.html
 @app.route('/body-type')
 def body_type():
-    return render_template('bodyType.html')
+    return render_template('BodyType.html')
 
 # Run the Flask application
 if __name__ == '__main__':

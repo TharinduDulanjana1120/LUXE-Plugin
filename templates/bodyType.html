@@ -3,15 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Classification</title>
+    <title>Teachable Machine Image Model</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        padding-bottom: 50px;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        #webcam-container {
+            margin-bottom: 20px;
+        }
+
+        #label-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .label-item {
+            margin: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .highest-prediction-label {
+        position: fixed;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        font-size: 25px;
+        background-color: #7192ea;
+        color: white;
+        border-radius: 4px;
+        }
+
+        /* loading animation */
+        .loading {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+        border: 5px solid #ccc;
+        border-top-color: #333;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+  @keyframes spin {
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+    </style>
 </head>
 <body>
-    <h1>Image Classification</h1>
-    <input type="file" id="image-input" accept="image/*">
-    <button onclick="classify()">Classify</button>
-    <p id="result"></p>
+    <div class="container">
+        <h1>Find Your Body Type</h1>
+        <button type="button" onclick="init()">Start</button>
+        <div id="webcam-container"></div>
+        <div id="label-container"></div>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.9.0"></script>
-    <script src="static/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script>
+        const URL = "https://teachablemachine.withgoogle.com/models/EMXuzRRnT/";
+
+        let model, webcam, labelContainer, maxPredictions;
+
+        async function init() {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+
+            const flip = true;
+            webcam = new tmImage.Webcam(300, 300, flip);
+            await webcam.setup();
+            await webcam.play();
+            window.requestAnimationFrame(loop);
+
+            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            labelContainer = document.getElementById("label-container");
+            for (let i = 0; i < maxPredictions; i++) {
+                const labelItem = document.createElement("div");
+                labelItem.classList.add("label-item");
+                labelContainer.appendChild(labelItem);
+                }
+            }
+            // Move the "Find your body type" line and the start button up after the start button is pressed
+            const startButton = document.querySelector("button");
+            startButton.addEventListener("click", () => {
+            const container = document.querySelector(".container");
+            container.style.marginTop = "-120px";
+
+            const loading = document.createElement("div");
+            loading.classList.add("loading");
+            container.appendChild(loading);
+
+            // Removing the loading animation
+            setTimeout(() => {
+            container.removeChild(loading);
+            }, 3000);
+            });
+
+
+            async function loop() {
+                webcam.update();
+                await predict();
+                window.requestAnimationFrame(loop);
+            }
+
+            async function predict() {
+            const prediction = await model.predict(webcam.canvas);
+            let maxProbability = 0;
+            let maxIndex = 0;
+
+            for (let i = 0; i < maxPredictions; i++) {
+            const classPrediction =
+            prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(2) + "%";
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+
+            if (prediction[i].probability > maxProbability) {
+            maxProbability = prediction[i].probability;
+            maxIndex = i;
+            }
+        }
+
+            // Show the class label with the highest prediction score at the bottom of the screen
+            const highestPredictionLabel = document.createElement("div");
+            highestPredictionLabel.classList.add("highest-prediction-label");
+            highestPredictionLabel.innerHTML = "Your Body Type : " + prediction[maxIndex].className;
+            document.body.appendChild(highestPredictionLabel);
+        }
+    </script>
 </body>
 </html>
