@@ -2,10 +2,14 @@
 from flask import Flask, render_template, request
 import math
 
-# Create a Flask application
-# app = Flask(__name__)
-app = Flask(__name__,template_folder='templates')
+# Import the predict Blueprint
+from predict import predict_blueprint
 
+# Create a Flask application
+app = Flask(__name__, template_folder='templates')
+
+# Register the predict Blueprint
+app.register_blueprint(predict_blueprint)
 
 # Define the route for the home page
 @app.route('/', methods=['GET', 'POST'])
@@ -43,6 +47,11 @@ def index():
 @app.route('/body-type')
 def body_type():
     return render_template('BodyType.html')
+
+# Define route for suggest.html
+@app.route('/suggest')
+def suggest():
+    return render_template('suggest.html')
 
 # Run the Flask application
 if __name__ == '__main__':

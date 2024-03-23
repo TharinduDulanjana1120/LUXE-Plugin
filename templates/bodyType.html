@@ -91,6 +91,8 @@
         <div id="label-container"></div>
     </div>
 
+    <a href="/suggest">Navigate to Suggest page</a>
+
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script>
@@ -164,6 +166,7 @@
             highestPredictionLabel.innerHTML = "Your Body Type : " + prediction[maxIndex].className;
             document.body.appendChild(highestPredictionLabel);
         }
+    
     </script>
 </body>
 </html>
