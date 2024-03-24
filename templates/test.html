@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>LUXE - Suggestion Products </title>
     <style>
         /* * {
     margin: 0;
@@ -168,7 +168,8 @@ body {
     <p>Size: {{ size }}</p>
     <section>
         <div>
-            {% if gender == 'female' %}
+            <!--1-->
+            {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' ) and occasion == 'party' %}
             <div>
                 <div>
                     {% for image_file in image_files %}
@@ -180,8 +181,205 @@ body {
                 </div>
             </div>
             {% endif %}
+
+            <!--2-->
+            {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' ) and occasion == 'casual' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--3-->
+            {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' ) and occasion == 'formal' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--4-->
+            {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' or body_type == 'slim' ) and occasion == 'party' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--5-->
+            {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' or body_type == 'slim' ) and occasion == 'casual' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--6-->
+            {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' or body_type == 'slim' ) and occasion == 'formal' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--7-->
+            {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' ) and occasion == 'party' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--8-->
+            {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' )and occasion == 'casual' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--9-->
+            {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' )and occasion == 'formal' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--10-->
+            {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' )and occasion == 'party' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--11-->
+            {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' )and occasion == 'casual' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--12-->
+            {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' )and occasion == 'formal' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--13-->
+            {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and body_type == 'slim' and occasion == 'party' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--14-->
+            {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and body_type == 'slim' and occasion == 'casual' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!--15-->
+            {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and body_type == 'slim' and occasion == 'formal' %}
+            <div>
+                <div>
+                    {% for image_file in image_files %}
+                    <div>
+                         <img src="{{ url_for('static', filename='images/female/' + image_file) }}" alt="{{ image_file }}">
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
             
-            {% if gender == 'male' %}
+            <!-- {% if gender == 'male' %}
             <div>
                 <div>
                     {% for image_file_male in image_files_male %}
@@ -191,7 +389,7 @@ body {
                     {% endfor %}
                 </div>
             </div>
-            {% endif %}
+            {% endif %} -->
         </div>
     </section>
     
