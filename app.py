@@ -28,7 +28,7 @@ def index():
 
         # Calculate Body Surface Area (BSA)
         bsa = math.sqrt((height * weight) / 3600)
-
+        
         # Determine the result based on gender and BSA
         if (gender == 'male' and bsa < 1.70) or (gender == 'female' and bsa < 1.60):
             result = 'Small (S)'
