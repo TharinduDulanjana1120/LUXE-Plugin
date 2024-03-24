@@ -66,13 +66,55 @@ def testroute():
     size = request.form['size']
 
     # Get the list of image files in the folder
-    image_folder = 'static/images/female'  # Path to the folder containing images
+    image_folder = 'static/images/dp'  # Path to the folder containing images
     image_files = os.listdir(image_folder)
-    
-    image_folder_male = 'static/images/male'  # Path to the folder containing images
-    image_files_male = os.listdir(image_folder_male)
 
-    return render_template('test.html', gender=gender, skin_color=skin_color, occasion=occasion, body_type=body_type, size=size,image_files=image_files,image_files_male=image_files_male)
+    image_folder2 = 'static/images/dc'  # Path to the folder containing images
+    image_files2 = os.listdir(image_folder2)
+
+    image_folder3 = 'static/images/df'  # Path to the folder containing images
+    image_files3 = os.listdir(image_folder3)
+
+    image_folder4 = 'static/images/np'  # Path to the folder containing images
+    image_files4 = os.listdir(image_folder4)
+
+    image_folder5 = 'static/images/nc'  # Path to the folder containing images
+    image_files5 = os.listdir(image_folder5)
+
+    image_folder6 = 'static/images/nf'  # Path to the folder containing images
+    image_files6 = os.listdir(image_folder6)
+
+    image_folder7 = 'static/images/mp'  # Path to the folder containing images
+    image_files7 = os.listdir(image_folder7)
+
+    image_folder8 = 'static/images/mc'  # Path to the folder containing images
+    image_files8 = os.listdir(image_folder8)
+
+    image_folder9 = 'static/images/mf'  # Path to the folder containing images
+    image_files9 = os.listdir(image_folder9)
+
+    image_folder10 = 'static/images/tp'  # Path to the folder containing images
+    image_files10 = os.listdir(image_folder10)
+
+    image_folder11 = 'static/images/tc'  # Path to the folder containing images
+    image_files11 = os.listdir(image_folder11)
+
+    image_folder12 = 'static/images/tf'  # Path to the folder containing images
+    image_files12 = os.listdir(image_folder12)
+
+    image_folder13 = 'static/images/wp'  # Path to the folder containing images
+    image_files13 = os.listdir(image_folder13)
+
+    image_folder14 = 'static/images/wc'  # Path to the folder containing images
+    image_files14 = os.listdir(image_folder14)
+
+    image_folder15 = 'static/images/wf'  # Path to the folder containing images
+    image_files15 = os.listdir(image_folder15)
+    
+    # image_folder_male = 'static/images/male'  # Path to the folder containing images
+    # image_files_male = os.listdir(image_folder_male)
+
+    return render_template('test.html', gender=gender, skin_color=skin_color, occasion=occasion, body_type=body_type, size=size,image_files=image_files,image_files2=image_files2,image_files3=image_files3,image_files4=image_files4,image_files5=image_files5,image_files6=image_files6,image_files7=image_files7,image_files8=image_files8,image_files9=image_files9,image_files10=image_files10,image_files11=image_files11,image_files12=image_files12,image_files13=image_files13,image_files14=image_files14,image_files15=image_files15)
 
 
 # Run the Flask application
