@@ -46,6 +46,8 @@ def index():
     # Render the HTML template with the result
     return render_template('index.html', result=result)
 
+@app.route('/lo')
+
 # Define route for bodyType.html
 @app.route('/body-type')
 def body_type():
