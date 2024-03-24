@@ -21,13 +21,12 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: calc(45% - 100px); /* Adjusted width to 45% minus margin */
-            height: calc(100vh - 250px); /* Adjusted height to 100vh minus padding */
+            height: calc(100vh - 300px); /* Adjusted height to 100vh minus padding */
             text-align: center;
             overflow: hidden; 
             position: relative; 
-            padding-left: 50px; /* Increased left padding */
-            padding-right: 20px; 
-            margin-left: 20px; /* Added left margin */
+            padding: 70px 30px 30px 10px;
+            margin-right: 100px; /* Added left margin */
         }    
 
         .container::after {
@@ -43,21 +42,22 @@
 
         h1 {
             font-size: 28px;
-            margin-bottom: 20px;
+            padding: 0px 20px;
             color: #333;
         }
 
         form label {
             display: block;
             text-align: left;
-            margin-bottom: 8px;
+            padding-left: 45px;
+            margin-bottom: 10px;
             color: #555;
             font-size: 16px;
         }
 
         input[type="number"],
         select {
-            width: 100%;
+            width: calc(100% - 80px);
             padding: 10px;
             margin-bottom: 20px;
             border: 1px solid #ddd;
@@ -75,38 +75,57 @@
         }
 
         button[type="submit"] {
-            background-color: #4CAF50;
+            background-color: #000000;
             color: white;
             padding: 14px 20px;
             margin: 8px 0;
             border: none;
-            border-radius: 4px;
+            border-radius: 25px;
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s;
         }
 
         button[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #59a95d;
+            color: #000000;
         }
+
+        .scan-button {
+            background-color: #5d8db7;
+            color: white;
+            padding: 14px 20px;
+            margin: 15px 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .scan-button:hover {
+            background-color: #1a1d40;
+            color: #ffffff;
+        }
+
 
         #result {
             font-weight: bold;
-            color: #4CAF50;
+            color: #000000;
             margin-top: 20px;
         }
 
         /* Adjusted size and position of the JSON animation */
         .json-animation {
-            width: 50%; /* Set width to 45% */
-            height: 100vh;
-            padding: 90px ;
+            width: 45%; /* Set width to 45% */
+            height: 100%;
+            padding: 0 10px; /* Adjusted padding */
             box-sizing: border-box; /* Include padding in width calculation */
         }
-
-        /* Hide play button, playing bar, and loop icon */
-        dotlottie-player {
-            --dotlottie-controls-display: none;
+        
+        .json-animation dotlottie-player {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -115,11 +134,11 @@
     <!-- JSON animation -->
     <div class="json-animation">
         <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-        <dotlottie-player src="https://lottie.host/ed1dabb2-0c07-4116-a592-cef646503e95/WXFfF7fpyF.json" background="#FFFFFF" speed="1" style="width: 100%; height: 100%" direction="1" playMode="normal" loop controls autoplay></dotlottie-player>
+        <dotlottie-player id="animationPlayer" src="https://lottie.host/ed1dabb2-0c07-4116-a592-cef646503e95/WXFfF7fpyF.json" background="#FFFFFF" speed="1" style="width: 100%; height: 100%" direction="1" playMode="normal" loop controls autoplay></dotlottie-player>
     </div>
 
     <div class="container">
-        <h1>LUXE Size Predictor</h1>
+        <h1>Reveal Your Ideal Body Size</h1>
         <form method="post" action="/">
             <label for="height">Height (cm):</label>
             <input type="number" name="height" required>
@@ -129,22 +148,32 @@
 
             <label for="gender">Gender:</label>
             <select name="gender" required>
+                <option value="" disabled selected>Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
+            
+            <br>
 
             <button type="submit">Submit</button>
         </form>
 
         {% if result %}
-            <div id="result">Result: {{ result }}</div>
+            <div id="result">You are {{ result }} Sized. </div>
         {% endif %}
 
-        <a href="/body-type">Navigate to Body Type page</a>
+        <br>
+        <button onclick="window.location.href='/body-type'" class="scan-button">Let's scan your body!</button>
+
         <!-- <a href="./templates/bodyType.html"> name given to the link </a> -->
         
     </div>
 
+    <script>
+        // Hide play button, playing bar, and loop icon using JavaScript
+        const player = document.getElementById('animationPlayer');
+        player.controls = false;
+    </script>
 
 </body>
 </html>
