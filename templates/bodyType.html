@@ -6,25 +6,38 @@
     <title>LUXE - Find Your Body Type</title>
     <style>
         body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #f0f0f0;
-        padding-bottom: 50px;
+            font-family: 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('/static/images/pexels-skylar-kang-6045285.jpg'); /* Your blurred background image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .container {
+            position: relative;
             text-align: center;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #333; /* Dark gray text color */
+            margin-bottom: 20px;
         }
 
         button {
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #4CAF50;
+            background-color: #4c86af;
             color: white;
             border: none;
             border-radius: 4px;
@@ -46,43 +59,54 @@
             margin: 10px;
             padding: 5px 10px;
             border-radius: 4px;
-            background-color: #4CAF50;
+            background-color: #4c86af;
             color: white;
         }
 
         .highest-prediction-label {
-        position: fixed;
-        bottom: 100px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 10px 20px;
-        font-size: 25px;
-        background-color: #7192ea;
-        color: white;
-        border-radius: 4px;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 25px;
+            background-color: #26417b;
+            color: white;
+            border-radius: 4px;
         }
 
-        /* loading animation */
         .loading {
-        position: absolute;
-        top: 60%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 60px;
-        height: 60px;
-        border: 5px solid #ccc;
-        border-top-color: #333;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 5px solid #ccc;
+            border-top-color: #333;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
-  @keyframes spin {
-    to {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-  }
+        @keyframes spin {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
 
-
+        /* New styles for the suggestion button */
+        .suggest-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4c86af;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -92,8 +116,8 @@
         <div id="webcam-container"></div>
         <div id="label-container"></div>
     </div>
-    <button onclick="window.location.href='/suggest'" >Next</button>
-    <!-- <a href="/suggest">Next</a> -->
+
+    <button class="suggest-button" onclick="navigateToSuggest()">Navigate to Suggest page</button>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
@@ -121,54 +145,56 @@
                 const labelItem = document.createElement("div");
                 labelItem.classList.add("label-item");
                 labelContainer.appendChild(labelItem);
-                }
             }
-            // Move the "Find your body type" line and the start button up after the start button is pressed
-            const startButton = document.querySelector("button");
-            startButton.addEventListener("click", () => {
-            const container = document.querySelector(".container");
-            container.style.marginTop = "-120px";
+        }
 
-            const loading = document.createElement("div");
-            loading.classList.add("loading");
-            container.appendChild(loading);
+        async function loop() {
+            webcam.update();
+            await predict();
+            window.requestAnimationFrame(loop);
+        }
 
-            // Removing the loading animation
-            setTimeout(() => {
-            container.removeChild(loading);
-            }, 3000);
-            });
-
-
-            async function loop() {
-                webcam.update();
-                await predict();
-                window.requestAnimationFrame(loop);
-            }
-
-            async function predict() {
+        async function predict() {
             const prediction = await model.predict(webcam.canvas);
             let maxProbability = 0;
             let maxIndex = 0;
 
             for (let i = 0; i < maxPredictions; i++) {
-            const classPrediction =
-            prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(2) + "%";
-            labelContainer.childNodes[i].innerHTML = classPrediction;
+                const classPrediction =
+                prediction[i].className + ": " + (prediction[i].probability * 100).toFixed(2) + "%";
+                labelContainer.childNodes[i].innerHTML = classPrediction;
 
-            if (prediction[i].probability > maxProbability) {
-            maxProbability = prediction[i].probability;
-            maxIndex = i;
+                if (prediction[i].probability > maxProbability) {
+                    maxProbability = prediction[i].probability;
+                    maxIndex = i;
+                }
             }
-        }
 
-            // Show the class label with the highest prediction score at the bottom of the screen
             const highestPredictionLabel = document.createElement("div");
             highestPredictionLabel.classList.add("highest-prediction-label");
             highestPredictionLabel.innerHTML = "Your Body Type : " + prediction[maxIndex].className;
             document.body.appendChild(highestPredictionLabel);
         }
-    
+
+        function navigateToSuggest() {
+            window.location.href = "/suggest";
+        }
+
+        // Move the "Find your body type" line and the start button up after the start button is pressed
+        const startButton = document.querySelector("button");
+        startButton.addEventListener("click", () => {
+            const container = document.querySelector(".container");
+            container.style.marginTop = "-120px";
+
+            const loading = document.createElement("div");
+            loading.classList.add("loading");
+            document.body.appendChild(loading);
+
+            // Removing the loading animation after 3 seconds
+            setTimeout(() => {
+                document.body.removeChild(loading);
+            }, 3000);
+        });
     </script>
 </body>
 </html>
