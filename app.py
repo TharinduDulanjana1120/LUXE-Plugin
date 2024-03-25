@@ -17,6 +17,20 @@ app.register_blueprint(predict_blueprint)
 # Define the route for the home page
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
+
+    # Render the HTML template with the result
+    return render_template('index.html')
+
+
+
+# Define the route for login.html
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/size',methods=['POST',"GET"])
+def show_size():
     result = None
 
     # Check if the form is submitted
@@ -42,20 +56,7 @@ def index():
             result = ' Double Extra Large(XL)'
         else:
             result = 'Wrong inputs'
-
-    # Render the HTML template with the result
-    return render_template('index.html', result=result)
-
-
-
-# Define the route for login.html
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
-@app.route('/size')
-def show_size():
-    return render_template('size.html')
+    return render_template('size.html',result=result)
 
 @app.route('/lo')
 
