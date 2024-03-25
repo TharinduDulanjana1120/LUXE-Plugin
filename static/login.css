@@ -25,6 +25,14 @@ body{
     border-radius: 15px;
     color: white;
     font-size: 1.rem;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+.shopnow-btn:hover{
+    background-color: #000000;
+    color: #ffffff;
 }
 .wrapper{
     display: flex;
@@ -46,7 +54,7 @@ body{
 }
 .nav-logo p{
     color: white;
-    font-size: 40px;
+    font-size: 80px;
     font-weight: 800;
 }
 .nav-menu ul{
@@ -68,6 +76,7 @@ body{
 .nav-button .btn{
     width: 130px;
     height: 40px;
+    font-size: 20px;
     font-weight: 500;
     background:  rgb(137, 142, 142);
     border: none;
