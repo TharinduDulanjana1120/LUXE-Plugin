@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXE - Suggestion Products </title>
+    <title>Perfect Outfits For You! </title>
     <style>
-        /* * {
+        @import url('https://fonts.googleapis.com/css2?family=Allura&family=Great+Vibes&family=Lobster&display=swap');
+
+        /* /* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-image: url('Images/outfitpage_bg.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
 } */
+
+    body {
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        justify-content: center;
+        margin: 0;
+        /* padding: 20px; */
+        background-image: url(../static/images/suggestedoutfits_bg.png);
+        background-size: cover;
+        background-attachment: fixed;
+    
+    }
 
 .container {
     max-width: 100%;
@@ -55,6 +62,17 @@ body {
     color: rgb(0, 0, 0);
 }
 
+h1 {
+    font-family: "Great Vibes", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 55px;
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    color: rgb(255, 251, 251);
+    padding-top: 30px;
+}
 .image-cards {
     display: flex;
     flex-wrap: wrap;
@@ -112,13 +130,39 @@ body {
 .card:hover .hover-text {
     display: block;
 }
+/* Base CSS */
+.image-grid {
+    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns */
+    column-gap: 5px;
+    row-gap: 10px;
+}
+
+.image-card {
+    position: relative;
+    height: 400px; /* Ensure images take full width of their container */
+    width: 90%; /* Ensure images take full width of their container */
+    overflow: hidden; /* Hide overflow to prevent image stretching */
+    border: 5px solid #3b546f; /* Add 2px border */
+    border-radius: 25px;
+}
+
+.image-card img {
+    width: 100%; /* Make images fill the space of their container */
+    height: 100%; /* Make images fill the space of their container */
+    object-fit: cover; /* Ensure images maintain aspect ratio and cover their container */
+    transition: transform 0.3s ease; /* Smooth transition for image zoom */
+    border-radius: 5px;
+    /* gap: 5px; */
+}
 
 .image-name {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    color:white;
+    color: white;
     background-color: rgba(26, 24, 24, 0.8);
     padding: 10px;
     text-align: center;
@@ -126,9 +170,48 @@ body {
     transition: opacity 0.3s ease-in-out;
 }
 
-.card:hover .image-name {
+/* Hover effect for image name */
+.image-card:hover .image-name {
     opacity: 0;
 }
+
+/* Zoom effect on image hover */
+.image-card:hover img {
+    transform: scale(1.05); /* Scale up the image on hover */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .image-grid {
+        grid-template-columns: repeat(1, 1fr); /* One column on even smaller screens */
+    }
+}
+
+
+.fit-on-btn {
+    background-color: #5d8db7;
+    color: white;
+    padding: 14px 20px;
+    margin: 15px auto; /* Center the button horizontally */
+    display: block; /* Ensure the button takes full width */
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.fit-on-btn:hover {
+    background-color: #1a1d40;
+    color: #ffffff;
+}
+
 
 /* For screens smaller than 768px */
 @media (max-width: 768px) {
@@ -146,7 +229,6 @@ body {
     }
 }
 
-/*
 
 
 /* For screens smaller than 576px (mobile devices) */
@@ -160,22 +242,18 @@ body {
     </style>
 </head>
 <body>
-    <h1>Suggestion:</h1>
-    <p>Gender: {{ gender }}</p>
-    <p>Skin Color: {{ skin_color }}</p>
-    <p>Occasion: {{ occasion }}</p>
-    <p>Body Type: {{ body_type }}</p>
-    <p>Size: {{ size }}</p>
+    <h1>Perfect Outfits For You</h1>
+
     <section>
         <br>
-        <button onclick="window.location.href='/body-type'" class="scan-button">Let's scan your body!</button>
+        <button onclick="window.location.href='/body-type'" class="fit-on-btn">Let's Try On Outfits!</button>
         <div>
             <!--1-->
             {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' ) and occasion == 'party' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/dp/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -187,9 +265,9 @@ body {
             <!--2-->
             {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' ) and occasion == 'casual' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files2 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/dc/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -201,9 +279,9 @@ body {
             <!--3-->
             {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' ) and occasion == 'formal' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files3 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/df/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -215,9 +293,9 @@ body {
             <!--4-->
             {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' or body_type == 'slim' ) and occasion == 'party' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files4 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/np/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -229,9 +307,9 @@ body {
             <!--5-->
             {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' or body_type == 'slim' ) and occasion == 'casual' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files5 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/nc/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -243,9 +321,9 @@ body {
             <!--6-->
             {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' or body_type == 'slim' ) and occasion == 'formal' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files6 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/nf/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -257,9 +335,9 @@ body {
             <!--7-->
             {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' ) and occasion == 'party' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files7 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/mp/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -271,9 +349,9 @@ body {
             <!--8-->
             {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' )and occasion == 'casual' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files8 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/mc/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -285,9 +363,9 @@ body {
             <!--9-->
             {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' )and occasion == 'formal' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files9 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/mf/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -299,9 +377,9 @@ body {
             <!--10-->
             {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' )and occasion == 'party' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files10 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/tp/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -313,9 +391,9 @@ body {
             <!--11-->
             {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' )and occasion == 'casual' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files11 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/tc/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -327,9 +405,9 @@ body {
             <!--12-->
             {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'rectangle' or body_type == 'invertedTriangle' )and occasion == 'formal' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files12 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/tf/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -341,9 +419,9 @@ body {
             <!--13-->
             {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and body_type == 'slim' and occasion == 'party' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files13 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/wp/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -355,9 +433,9 @@ body {
             <!--14-->
             {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and body_type == 'slim' and occasion == 'casual' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files14 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/wc/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -369,9 +447,9 @@ body {
             <!--15-->
             {% if gender == 'male' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and body_type == 'slim' and occasion == 'formal' %}
             <div>
-                <div>
+                <div class="image-grid">
                     {% for image_file in image_files15 %}
-                    <div>
+                    <div class="image-card">
                          <img src="{{ url_for('static', filename='images/wf/' + image_file) }}" alt="{{ image_file }}">
                         
                     </div>
@@ -393,6 +471,7 @@ body {
             </div>
             {% endif %} -->
         </div>
+        <button onclick="window.location.href='/suggest'" class="fit-on-btn">Try Again </button>
     </section>
     
 </body>
