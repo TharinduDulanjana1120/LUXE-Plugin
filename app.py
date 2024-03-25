@@ -46,6 +46,17 @@ def index():
     # Render the HTML template with the result
     return render_template('index.html', result=result)
 
+
+
+# Define the route for login.html
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/size')
+def show_size():
+    return render_template('size.html')
+
 @app.route('/lo')
 
 # Define route for bodyType.html
