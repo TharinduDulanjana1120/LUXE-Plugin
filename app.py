@@ -69,6 +69,10 @@ def body_type():
 def suggest():
     return render_template('suggest.html')
 
+@app.route('/productspage')
+def productspage():
+    return render_template('productsPage.html')
+
 # Define route for suggest.html
 @app.route('/testfile', methods=['POST'])
 def testroute():
