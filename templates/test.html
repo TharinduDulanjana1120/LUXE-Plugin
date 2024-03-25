@@ -167,6 +167,8 @@ body {
     <p>Body Type: {{ body_type }}</p>
     <p>Size: {{ size }}</p>
     <section>
+        <br>
+        <button onclick="window.location.href='/body-type'" class="scan-button">Let's scan your body!</button>
         <div>
             <!--1-->
             {% if gender == 'female' and (skin_color == 'fair' or skin_color == 'dark' or skin_color == 'tan') and (body_type == 'oval' or body_type == 'pear' ) and occasion == 'party' %}
