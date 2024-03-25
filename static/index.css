@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Great+Vibes&family=Lobster&display=swap');
+
 :root{
     --maincolor: black;
     --seondcolor:#1616ea;
@@ -31,9 +33,18 @@ html{
     
 }
 .nav-logo p{
-    color: white;
-    font-size: 40px;
-    font-weight: 800;
+
+    font-family: "Great Vibes", cursive;
+    font-weight: 400;
+    font-style: normal; 
+    padding-top: 20px; 
+    padding-right: 600px;  
+    font-size: 85px;
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    color: azure;
+    padding-bottom: 100px;
 }
 .nav-menu ul{
     display: flex;
@@ -82,7 +93,7 @@ html{
 }
 
 .main-background{
-    background: url(/static/images/index_login/storeback.jpg);
+    background: url(/static/images/index_login/indexbg.png);
     background-size: cover;
     background-position: center;
     width: 100%;
